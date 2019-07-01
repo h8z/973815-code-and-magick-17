@@ -1,6 +1,5 @@
 'use strict';
 
-// Включение отображения блока кастомизации персонажа
 var userDialog = document.querySelector('.setup');
 userDialog.classList.remove('hidden');
 
@@ -41,12 +40,20 @@ var WIZARD_EYESCOLORS = [
 ];
 var WIZARD_TOTAL = 4;
 
-// Получение рандомного элемента из любого массива
+/**
+ * Возвращает случайный элемент массива.
+ * @param {array} arr
+ * @returns {string}
+ */
 var getRandElement = function (arr) {
   var rand = Math.floor(Math.random() * arr.length);
   return arr[rand];
 };
 
+/**
+ * Собирает объект из элементов, полученных из другой функции.
+ * @returns {object}
+ */
 var getRandWizard = function () {
   return {
     name: getRandElement(WIZARD_NAMES) + '\t' + getRandElement(WIZARD_SURNAMES),
@@ -61,17 +68,12 @@ for (var i = 0; i < WIZARD_TOTAL; i++) {
   similarWizards.push(getRandWizard());
 }
 
-// Создание переменных для доступа к элементам на странице
 var similarListElement = userDialog.querySelector('.setup-similar-list');
-
 var similarWizardTemplate = document.querySelector('#similar-wizard-template')
     .content
     .querySelector('.setup-similar-item');
-
-// Использование фрагмента для одновременного добавления контента
 var fragment = document.createDocumentFragment();
 
-// Подготовка фрагмента, используем полученный ранее массив
 similarWizards.forEach(function (item) {
   var currentWizard = item;
   var wizardElement = similarWizardTemplate.cloneNode(true);
@@ -83,7 +85,6 @@ similarWizards.forEach(function (item) {
   fragment.appendChild(wizardElement);
 });
 
-// Вставка + убираем дисплей-нан
 similarListElement.appendChild(fragment);
 
 userDialog.querySelector('.setup-similar').classList.remove('hidden');
