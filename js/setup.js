@@ -43,7 +43,7 @@ var WIZARD_TOTAL = 4;
 /**
  * Возвращает случайный элемент массива.
  * @param {array} arr
- * @returns {string}
+ * @return {string}
  */
 var getRandElement = function (arr) {
   var rand = Math.floor(Math.random() * arr.length);
@@ -52,7 +52,7 @@ var getRandElement = function (arr) {
 
 /**
  * Собирает объект из элементов, полученных из другой функции.
- * @returns {object}
+ * @return {object}
  */
 var getRandWizard = function () {
   return {
