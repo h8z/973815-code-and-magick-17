@@ -72,8 +72,8 @@ var similarWizardTemplate = document.querySelector('#similar-wizard-template')
 var fragment = document.createDocumentFragment();
 
 // Подготовка фрагмента, используем полученный ранее массив
-for (var j = 0; j < WIZARD_TOTAL; j++) {
-  var currentWizard = similarWizards[j];
+similarWizards.forEach(function (item) {
+  var currentWizard = item;
   var wizardElement = similarWizardTemplate.cloneNode(true);
 
   wizardElement.querySelector('.setup-similar-label').textContent = currentWizard.name;
@@ -81,7 +81,7 @@ for (var j = 0; j < WIZARD_TOTAL; j++) {
   wizardElement.querySelector('.wizard-eyes').style.fill = currentWizard.eyesColor;
 
   fragment.appendChild(wizardElement);
-}
+});
 
 // Вставка + убираем дисплей-нан
 similarListElement.appendChild(fragment);
