@@ -41,22 +41,24 @@ var WIZARD_EYESCOLORS = [
 ];
 var WIZARD_TOTAL = 4;
 
-var similarWizards = [];
-
 // Получение рандомного элемента из любого массива
 var getRandElement = function (arr) {
   var rand = Math.floor(Math.random() * arr.length);
   return arr[rand];
 };
 
-// Генерация массива магов со случайными именами и цветами
-for (var i = 0; i < WIZARD_TOTAL; i++) {
-  var randWizard = {
+var getRandWizard = function () {
+  return {
     name: getRandElement(WIZARD_NAMES) + '\t' + getRandElement(WIZARD_SURNAMES),
     coatColor: getRandElement(WIZARD_COATCOLORS),
     eyesColor: getRandElement(WIZARD_EYESCOLORS)
   };
-  similarWizards.push(randWizard);
+};
+
+var similarWizards = [];
+
+for (var i = 0; i < WIZARD_TOTAL; i++) {
+  similarWizards.push(getRandWizard());
 }
 
 // Создание переменных для доступа к элементам на странице
