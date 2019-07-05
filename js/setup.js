@@ -1,8 +1,5 @@
 'use strict';
 
-var userDialog = document.querySelector('.setup');
-userDialog.classList.remove('hidden');
-
 var WIZARD_NAMES = [
   'Иван',
   'Хуан Себастьян',
@@ -41,17 +38,16 @@ var WIZARD_EYESCOLORS = [
 var WIZARD_TOTAL = 4;
 
 /**
- * Возвращает случайный элемент массива.
+ * Возвращает случайный элемент массива
  * @param {array} arr
  * @return {string}
  */
 var getRandElement = function (arr) {
-  var rand = Math.floor(Math.random() * arr.length);
-  return arr[rand];
+  return arr[Math.floor(Math.random() * arr.length)];
 };
 
 /**
- * Собирает объект из элементов, полученных из другой функции.
+ * Собирает объект с данными случайного мага
  * @return {object}
  */
 var getRandWizard = function () {
@@ -62,11 +58,24 @@ var getRandWizard = function () {
   };
 };
 
-var similarWizards = [];
+/**
+ * Возвращает массив объектов со случайными магами
+ * @param {number} count количество
+ * @return {array}
+ */
+var getSimilarWizards = function (count) {
+  var similarWizards = [];
 
-for (var i = 0; i < WIZARD_TOTAL; i++) {
-  similarWizards.push(getRandWizard());
-}
+  for (var i = 0; i < count; i++) {
+    similarWizards.push(getRandWizard());
+  }
+
+  return similarWizards;
+};
+
+var userDialog = document.querySelector('.setup');
+
+userDialog.classList.remove('hidden');
 
 var similarListElement = userDialog.querySelector('.setup-similar-list');
 var similarWizardTemplate = document.querySelector('#similar-wizard-template')
@@ -74,7 +83,7 @@ var similarWizardTemplate = document.querySelector('#similar-wizard-template')
     .querySelector('.setup-similar-item');
 var fragment = document.createDocumentFragment();
 
-similarWizards.forEach(function (item) {
+getSimilarWizards(WIZARD_TOTAL).forEach(function (item) {
   var currentWizard = item;
   var wizardElement = similarWizardTemplate.cloneNode(true);
 
