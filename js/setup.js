@@ -1,5 +1,7 @@
 'use strict';
 
+var ESC_KEYCODE = 27;
+var ENTER_KEYCODE = 13;
 var WIZARD_NAMES = [
   'Иван',
   'Хуан Себастьян',
@@ -60,7 +62,7 @@ var getRandWizard = function () {
 
 /**
  * Возвращает массив объектов со случайными магами
- * @param {number} count количество
+ * @param {number} count количество создаваемых магов
  * @return {array}
  */
 var getSimilarWizards = function (count) {
@@ -73,11 +75,48 @@ var getSimilarWizards = function (count) {
   return similarWizards;
 };
 
-var userDialog = document.querySelector('.setup');
+var setup = document.querySelector('.setup');
+var setupOpen = document.querySelector('.setup-open');
+var setupClose = setup.querySelector('.setup-close');
+var setupUserName = setup.querySelector('.setup-user-name');
 
-userDialog.classList.remove('hidden');
+var openPopup = function () {
+  setup.classList.remove('hidden');
+  document.addEventListener('keydown', onPopupEscPress);
+};
 
-var similarListElement = userDialog.querySelector('.setup-similar-list');
+var closePopup = function () {
+  setup.classList.add('hidden');
+  document.removeEventListener('keydown', onPopupEscPress);
+};
+
+var onPopupEscPress = function (evt) {
+  if (evt.keyCode === ESC_KEYCODE && setupUserName !== document.activeElement) {
+    closePopup();
+  }
+};
+
+setupOpen.addEventListener('click', function () {
+  openPopup();
+});
+
+setupOpen.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    openPopup();
+  }
+});
+
+setupClose.addEventListener('click', function () {
+  closePopup();
+});
+
+setupClose.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    closePopup();
+  }
+});
+
+var similarListElement = setup.querySelector('.setup-similar-list');
 var similarWizardTemplate = document.querySelector('#similar-wizard-template')
     .content
     .querySelector('.setup-similar-item');
@@ -96,4 +135,4 @@ getSimilarWizards(WIZARD_TOTAL).forEach(function (item) {
 
 similarListElement.appendChild(fragment);
 
-userDialog.querySelector('.setup-similar').classList.remove('hidden');
+setup.querySelector('.setup-similar').classList.remove('hidden');
